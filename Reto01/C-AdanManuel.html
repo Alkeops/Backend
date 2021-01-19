@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clases</title>
+  </head>
+  <body>
+    <script>
+      class Usuario {
+        constructor(nombre, apellido, libros, mascotas) {
+          this.nombre = nombre;
+          this.apellido = apellido;
+          this.libros = libros;
+          this.mascotas = mascotas;
+        }
+        getFullName() {
+          return `${this.nombre} ${this.apellido}`;
+        }
+        addMascota(mascota) {
+          this.mascotas.push(mascota);
+          return `La mascota ${mascota} fue agregada`;
+        }
+        getMascotas() {
+          return this.mascotas.length;
+        }
+        addBook(book, autor) {
+          this.libros.push({ book: book, autor: autor });
+          return `El libro ${book} fue agregado`;
+        }
+        getBook() {
+          let array = [];
+          for (let libro of this.libros) {
+            array.push(libro.book);
+          }
+          return array;
+        }
+      }
+      //Sujeto de pruebas
+      let Manuel = new Usuario(
+        "Manuel",
+        "Adan",
+        [
+          { book: "El fin de la eternidad", autor: "Isaac Asimov" },
+          { book: "Matar a un ruiseñor", autor: "Harper Lee" },
+        ],
+        ["gato", "perro"]
+      );
+      //Sujeto de pruebas
+    </script>
+  </body>
+</html>
