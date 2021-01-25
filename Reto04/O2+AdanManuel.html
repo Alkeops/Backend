@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="text"
+      style="
+        margin-left: 20px;
+        border: 1px solid blue;
+        height: 40px;
+        font-size: 16px;
+        padding: 2px 5px;
+      "
+    />
+    <span
+      style="margin-left: 20px; font-size: 16px; text-transform: uppercase"
+      id="span"
+    >
+    </span>
+    <script type="module">
+      import { fromEvent } from "https://dev.jspm.io/rxjs@6/_esm2015";
+      import { filter } from "https://dev.jspm.io/rxjs@6/_esm2015/operators";
+      const input = document.querySelector("#text");
+      const span = document.querySelector("#span");
+      const observable = fromEvent(input, "keyup");
+
+      const subscribirse = observable
+        .pipe(
+          filter(({ key, keyCode }) => {
+            if (key.length === 1 || key === "Backspace") {
+              return { key, keyCode };
+            }
+          })
+        )
+        .subscribe(
+          ({ key, keyCode }) => {
+            if (keyCode === 8) {
+              span.textContent = span.textContent.substring(1);
+              return;
+            }
+            span.textContent = event.key + span.textContent;
+
+            if (input.value.toLowerCase() === "error")
+              subscribirse.error("Adios por error");
+            if (input.value.toLowerCase() === "complete")
+              subscribirse.complete();
+            setTimeout(() => {
+              subscribirse.unsubscribe();
+              reset();
+            }, 30000);
+          },
+          (error) => {
+            console.log(error);
+            reset();
+          },
+          (complete) => {
+            console.log("MISION COMPLETE");
+            reset();
+          }
+        );
+      const reset = () => {
+        input.readOnly = true;
+        span.textContent = "";
+      };
+    </script>
+  </body>
+</html>
