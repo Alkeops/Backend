@@ -9,10 +9,8 @@ class States {
   constructor() {
     this.state = [];
   }
-  setState = (data: Producto) => {
-    this.state.push(data);
-    return;
-  };
+  setState = (data: Producto) => this.state.push(data);
+
   deleteState = (id: string) => {
     if (!this.stateExists(id)) {
       return 404;
@@ -22,6 +20,7 @@ class States {
     this.state.push(...newData);
     return 200;
   };
+
   stateExists = (id: string) => this.state.find((element) => element.id === id);
 }
 
