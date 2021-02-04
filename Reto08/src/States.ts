@@ -12,16 +12,22 @@ class States {
   setState = (data: Producto) => this.state.push(data);
 
   deleteState = (id: string) => {
-    if (!this.stateExists(id)) {
-      return 404;
-    }
+    const product = this.stateExists(id);
+    if (!product) return 404;
     const newData = this.state.filter((element) => element.id !== id);
     this.state.length = 0;
     this.state.push(...newData);
-    return 200;
+    return product;
   };
 
   stateExists = (id: string) => this.state.find((element) => element.id === id);
+
+  updateState = (id: string, data: Producto) => {
+    const index = this.state.findIndex((element) => element.id === id);
+    if (index < 0) return 404;
+    this.state[index] = { ...data };
+    return 200;
+  };
 }
 
 export default States;
