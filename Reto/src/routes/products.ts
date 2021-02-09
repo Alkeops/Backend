@@ -9,14 +9,6 @@ const { state, setState, deleteState, stateExists, updateState } = new States();
 router.get("/productos", (req, res) => {
   res.json(state.length > 0 ? state : NO_PRODUCTS);
 });
-
-router.get("/productos/:id", (req, res) => {
-  const { id } = req.params;
-  const item = stateExists(id);
-  res.status(item ? 200 : 404);
-  res.json(item || NOT_FOUND);
-});
-
 router.post("/productos", (req, res) => {
   const { title, price, thumbnail } = req.body;
   const newProduct = {
@@ -28,6 +20,17 @@ router.post("/productos", (req, res) => {
   setState(newProduct);
   res.status(201);
   res.json(newProduct);
+});
+
+router.get("/productos/vista", (req, res) => {
+  res.render("main", { suggestedChamps: [...state] });
+});
+
+router.get("/productos/:id", (req, res) => {
+  const { id } = req.params;
+  const item = stateExists(id);
+  res.status(item ? 200 : 404);
+  res.json(item || NOT_FOUND);
 });
 
 router.delete("/productos/delete/:id", (req, res) => {

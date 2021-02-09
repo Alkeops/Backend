@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-wrap: wrap;
+  background: #022c43;
+  color: rgb(233, 233, 233);
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 15px;
+}
+body .form__header,
+body .card-container .card-container__title {
+  letter-spacing: 0.9px;
+}
+body .form {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+body .form .form__input {
+  border: none;
+  border-radius: 7px;
+  height: 40px;
+  outline: none;
+  padding: 0 10px;
+  transition: 0.8s;
+  width: 100%;
+}
+body .form .form__input::placeholder {
+  text-transform: uppercase;
+  color: #115173;
+}
+body .form .form__input:focus {
+  box-shadow: 1px 1px 12px #dbdbdb;
+}
+body .form button {
+  background: #ffd700;
+  border: none;
+  border-radius: 7px;
+  color: #115173;
+  font-size: 22px;
+  font-weight: bolder;
+  height: 35px;
+  letter-spacing: 1px;
+  transition: 0.3s;
+  width: 100%;
+}
+body .form button:hover {
+  background: #ffdf2d;
+  box-shadow: 1px 1px 3px #dbdbdb;
+}
+body .card-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 40px;
+  width: 100%;
+}
+body .card-container .card,
+body .card-container .card__names {
+  align-items: center;
+  background: #115173;
+  display: grid;
+  grid-template-columns: repeat(3, 50% 30% 20%);
+  height: 60px;
+  padding: 0 10px;
+  width: 100%;
+}
+body .card-container .card__names {
+  background: none;
+}
+body .card-container .card__names span,
+body .card-container .card span {
+  align-items: center;
+  display: flex;
+  border-right: 1px solid rgba(255, 255, 255, 0.219);
+  padding: 0 8px;
+  height: 100%;
+}
+body .card-container .card__names span {
+  font-size: 14px;
+  font-weight: 800;
+}
+body .card-container .card__names span:last-child {
+  border: none;
+}
+body .card-container .card span {
+  font-size: 14px;
+}
+body .card-container .card .card__thumbnail {
+  height: 45px;
+  margin: 0 auto;
+  width: auto;
+}
+body .card-container .card:nth-child(2n) {
+  background: #053f5e;
+}
+
+@media (min-width: 768px) {
+  body {
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  body .form {
+    width: 50%;
+  }
+  body .card-container {
+    margin: 0;
+    width: 45%;
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    padding: 0 200px;
+  }
+}
