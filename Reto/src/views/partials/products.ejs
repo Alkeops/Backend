@@ -1,0 +1,19 @@
+<div class="card-container">
+    <% if(suggestedChamps.length !== 0) { %>
+    <h2 class="card-container__title">Productos</h2>
+    <div class="card__names">
+        <span>Nombre</span>
+        <span>Precio</span>
+        <span>Imagen</span>
+    </div>
+    <% suggestedChamps.forEach((val) => {%>
+    <div class="card">
+        <span class="card__title"><%- val.title %></span>
+        <span class="card__price"><%- val.price %></span>
+        <img class="card__thumbnail" src=<%- val.thumbnail %> alt="icon"></img>
+    </div>
+    <%});%>
+    <% } else{ %>
+    <h2 class="card-container__title">No hay Productos Cargados</h2>
+    <% } %>
+</div>
