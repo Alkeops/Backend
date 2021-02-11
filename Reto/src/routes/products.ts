@@ -23,7 +23,7 @@ router.post("/productos", (req, res) => {
 });
 
 router.get("/productos/vista", (req, res) => {
-  res.render("main", { suggestedChamps: [...state] });
+  res.render("index.pug", { suggestedChamps: [...state] });
 });
 
 router.get("/productos/:id", (req, res) => {

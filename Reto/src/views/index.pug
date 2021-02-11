@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet" type="text/css" href="/style.css")
+    body
+        form(id="form" class="form")
+            h2(class="form__header") Agregar Producto
+            input(id="title" type="text" name="title" class="form__input" placeholder="Title")
+            input(id="price" type="text" name="price" class="form__input" placeholder="Price")
+            input(input id="thumbnail" type="text" name="thumbnail" class="form__input" placeholder="thumbnail")
+            button(id="button") Enviar
+        div(class="card-container")
+            if(suggestedChamps.length)
+                h2(class="card-container__title") Productos
+                div(class="card__names")
+                    span Nombre
+                    span Precio
+                    span Imagen 
+                each val in suggestedChamps
+                    -var title = val.title
+                    -var price = val.price
+                    -var thumbnail = val.thumbnail
+                    div(class="card")
+                        span(class="card__title")= title
+                        span(class="card__price")= price
+                        img(class="card__thumbnail" src=thumbnail alt="icon")
+            else
+                h2(class="card-container__title") No hay Productos Cargados
+        script(src="/script.js")
