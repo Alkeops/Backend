@@ -1,0 +1,17 @@
+div(class="card-container")
+    if(suggestedChamps.length)
+        h2(class="card-container__title") Productos
+        div(class="card__names")
+            span Nombre
+            span Precio
+            span Imagen 
+        each val in suggestedChamps
+            -var title = val.title
+            -var price = val.price
+            -var thumbnail = val.thumbnail
+            div(class="card")
+                span(class="card__title")= title
+                span(class="card__price")= price
+                img(class="card__thumbnail" src=thumbnail alt="icon")
+    else
+        h2(class="card-container__title") No hay Productos Cargados
