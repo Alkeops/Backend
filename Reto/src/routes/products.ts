@@ -1,10 +1,27 @@
 import express from "express";
 import States from "../States";
+import { serverHttp } from "../index";
+import { NO_PRODUCTS, NOT_FOUND } from "../constants";
 
-import { NO_PRODUCTS, NOT_FOUND, DELETE_SUCCESS } from "../constants";
+let io = require("socket.io")(serverHttp);
 
 const router = express.Router();
 const { state, setState, deleteState, stateExists, updateState } = new States();
+
+io.on("connection", (socket: any) => {
+  socket.emit("productos", state.length > 0 ? state : NO_PRODUCTS);
+  socket.on("producto", (producto: any) => {
+    const { title, price, thumbnail } = producto;
+    const newProduct = {
+      title,
+      price,
+      thumbnail,
+      id: (state.length + 101).toString(),
+    };
+    setState(newProduct);
+    io.emit("productoCargado", state);
+  });
+});
 
 router.get("/productos", (req, res) => {
   res.json(state.length > 0 ? state : NO_PRODUCTS);
@@ -23,7 +40,7 @@ router.post("/productos", (req, res) => {
 });
 
 router.get("/productos/vista", (req, res) => {
-  res.render("main", { suggestedChamps: [...state] });
+  res.render("main");
 });
 
 router.get("/productos/:id", (req, res) => {

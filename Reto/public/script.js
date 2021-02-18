@@ -1,41 +1,64 @@
+const socket = io();
 const form = document.querySelector("#form");
 const button = document.querySelector("#button");
 const title = document.querySelector("#title");
 const price = document.querySelector("#price");
+const container = document.querySelector("#card-container");
 const thumbnail = document.querySelector("#thumbnail");
 const url = "http://127.0.0.1:8080/api/productos";
-
 let data = {};
 
+socket.on("productos", (data) => {
+  completarTemplate(data);
+});
+socket.on("productoCargado", (data) => {
+  completarTemplate(data);
+});
+const completarTemplate = (data) => {
+  if (typeof data === "string")
+    return (container.innerHTML = `<h2 class="card-container__title">No hay Productos Cargados</h2>`);
+  container.innerHTML = `<h2 class="card-container__title">Productos</h2>
+  <div class="card__names">
+      <span>Nombre</span>
+      <span>Precio</span>
+      <span>Imagen</span>
+  </div>`;
+  data.map(({ title, price, thumbnail }) => {
+    let content = `<div class="card">
+        <span class="card__title">${title}</span>
+        <span class="card__price">${price}</span>
+        <img class="card__thumbnail" src=${thumbnail} alt="icon"></img>
+      </div>`;
+    container.innerHTML += content;
+  });
+};
+
+//Data from form
 const saveInData = ({ target: { value, name } }) => {
   data = {
     ...data,
     [name]: value,
   };
-  console.log(data);
 };
 
+//Fetch
 const api = async () => {
-  const send = await fetch(url, {
+  /*   const send = await fetch(url, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  });
-  const response = await send.json();
+  }); */
+
+  socket.emit("producto", data);
   title.value = "";
   price.value = "";
   thumbnail.value = "";
-  console.log(response);
-  setTimeout(() => {
-    window.location.reload();
-  }, 1000);
 };
-/* setInterval(() => {
-  window.location.reload();
-}, 5000); */
+
+//Event Listeners
 
 title.addEventListener("change", (e) => saveInData(e));
 price.addEventListener("change", (e) => saveInData(e));

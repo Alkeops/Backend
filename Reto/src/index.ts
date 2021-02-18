@@ -1,8 +1,11 @@
 import express from "express";
 import handlebars from "express-handlebars";
+import http from "http";
+
 import { SERVER_ERROR, SERVER_RUNNING } from "./constants";
 
 const app = express();
+export const serverHttp = http.createServer(app);
 
 app.engine(
   "hbs",
@@ -24,7 +27,7 @@ app.set("views", "./src/views");
 
 const PORT = 8080;
 const HOST = "127.0.0.1";
-const server = app.listen(PORT, HOST, () =>
+const server = serverHttp.listen(PORT, HOST, () =>
   console.log(`${SERVER_RUNNING} ${HOST}:${PORT}`)
 );
 server.on("error", (error) => console.log(`${SERVER_ERROR} ${error}`));
