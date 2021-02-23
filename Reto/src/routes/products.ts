@@ -1,13 +1,16 @@
 import express from "express";
+const fs = require("fs");
 import States from "../States";
 import { serverHttp } from "../index";
 import { NO_PRODUCTS, NOT_FOUND } from "../constants";
-
+if (!fs.existsSync("./mensajes.txt"))
+  fs.writeFileSync("./mensajes.txt", JSON.stringify([]));
 let io = require("socket.io")(serverHttp);
 
 const router = express.Router();
 const { state, setState, deleteState, stateExists, updateState } = new States();
-
+const Mensajes = new States();
+/*SOCKETS*/
 io.on("connection", (socket: any) => {
   socket.emit("productos", state.length > 0 ? state : NO_PRODUCTS);
   socket.on("producto", (producto: any) => {
@@ -23,6 +26,29 @@ io.on("connection", (socket: any) => {
   });
 });
 
+io.on("connection", (socket: any) => {
+  const read = fs.readFileSync("./mensajes.txt");
+  let data = JSON.parse(read);
+  let mensajesGuardados: any = data || [];
+  socket.emit(
+    "mensajes",
+    mensajesGuardados.length > 0 ? mensajesGuardados : "Sin mensajes"
+  );
+  socket.on("mensaje", (mensaje: any) => {
+    const { email, sms } = mensaje;
+    const newMensaje = {
+      email,
+      sms,
+      date: `${new Date().toLocaleString("es-MX")}`,
+      id: (data.length + 1).toString(),
+    };
+    data.push(newMensaje);
+    fs.writeFileSync("./mensajes.txt", JSON.stringify(data));
+    io.emit("mensajeEnviado", newMensaje);
+  });
+});
+
+/*Rutas*/
 router.get("/productos", (req, res) => {
   res.json(state.length > 0 ? state : NO_PRODUCTS);
 });

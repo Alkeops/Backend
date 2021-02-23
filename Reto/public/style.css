@@ -97,7 +97,142 @@ body .card-container .card .card__thumbnail {
 body .card-container .card:nth-child(2n) {
   background: #053f5e;
 }
+body .whatsapp {
+  background: rgba(255, 255, 255, 0.123);
+  border-radius: 20px;
+  bottom: 10px;
+  cursor: pointer;
+  height: auto;
+  position: absolute;
+  right: 10px;
+  width: 60px;
+  z-index: 2;
+}
 
+body .whatsapp-box {
+  background: #fff;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  height: calc(100% - 90px);
+  right: 0;
+  position: absolute;
+  top: 0;
+  transition: 0.1s;
+  width: 100vw;
+  max-width: 400px;
+  z-index: 1;
+}
+body .whatsapp-box__active {
+  transform: scaleY(1);
+}
+body .whatsapp-box .whatsapp__header {
+  background: #053f5e;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 50px;
+}
+body .whatsapp-box .whatsapp__header h2 {
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 10px;
+  position: relative;
+  z-index: 3;
+}
+body .whatsapp-box .whatsapp__content {
+  height: calc(100% - 170px);
+  overflow-y: scroll;
+  margin-top: 60px;
+  padding: 0 10px;
+}
+body .whatsapp-box .whatsapp__content .mensaje {
+  background: white;
+  border: 1px solid #053f5e;
+  border-radius: 6px;
+  box-shadow: 1px 1px 0px #053f5e, 2px 2px 0px #053f5e, 3px 3px 0px #053f5e;
+  margin-bottom: 20px;
+  padding: 10px;
+  position: relative;
+}
+body .whatsapp-box .whatsapp__content .mensaje .mensaje__info {
+  display: flex;
+  justify-content: space-between;
+  max-height: 16px;
+  overflow: hidden;
+}
+body .whatsapp-box .whatsapp__content .mensaje span {
+  display: block;
+}
+body .whatsapp-box .whatsapp__content .mensaje .email,
+body .whatsapp-box .whatsapp__content .mensaje .fecha {
+  color: #053f5e;
+}
+body .whatsapp-box .whatsapp__content .mensaje .email {
+  font-weight: bolder;
+  font-size: 13px;
+}
+body .whatsapp-box .whatsapp__content .mensaje .fecha {
+  font-weight: lighter;
+  font-size: 12px;
+}
+body .whatsapp-box .whatsapp__content .mensaje .sms {
+  color: black;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+}
+body .whatsapp-box .whatsapp__content .mensaje::after {
+  content: "";
+  border-style: solid;
+  border-width: 9px 6px 9px 6px;
+  border-color: transparent #053f5e transparent transparent;
+  top: 5px;
+  position: absolute;
+  right: 100%;
+}
+body .whatsapp-box .whatsapp__input {
+  padding: 10px 10px;
+  background: #053f5e;
+}
+body .whatsapp-box .whatsapp__input input {
+  border-radius: 7px;
+  border: none;
+  height: 40px;
+  outline: none;
+  padding: 0 10px;
+  margin-bottom: 5px;
+  transition: 0.8s;
+  width: 80%;
+}
+body .whatsapp-box .whatsapp__input .mensaje__inputEmail {
+  width: 100%;
+}
+body .whatsapp-box .whatsapp__input .mensaje__inputEmail:read-only {
+  background: #053f5e;
+  color: white;
+  letter-spacing: 0.3px;
+  font-weight: bolder;
+}
+body .whatsapp-box .whatsapp__input .mensaje__input {
+  width: 85%;
+}
+body .whatsapp-box .whatsapp__input input::placeholder {
+  color: #115173;
+  text-transform: uppercase;
+}
+body .whatsapp-box .whatsapp__input div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+body .whatsapp-box .whatsapp__input .send_button {
+  width: 10%;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 50%;
+}
 @media (min-width: 768px) {
   body {
     align-items: flex-start;
@@ -109,6 +244,11 @@ body .card-container .card:nth-child(2n) {
   body .card-container {
     margin: 0;
     width: 45%;
+  }
+  body .whatsapp-box {
+    box-shadow: 1px 1px 8px black;
+    right: 40px;
+    top: 10px;
   }
 }
 @media (min-width: 1440px) {
